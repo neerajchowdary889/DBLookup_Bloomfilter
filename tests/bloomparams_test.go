@@ -3,7 +3,7 @@ package tests
 import (
 	"fmt"
 	"testing"
-	"BloomFilter/BloomFilter/types"
+	"github.com/neerajchowdary889/DBLookup_Bloomfilter/BloomFilter/types"
 )
 
 func TestBloomFilterParams(t *testing.T) {

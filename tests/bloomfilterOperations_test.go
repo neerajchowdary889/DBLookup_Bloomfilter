@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"BloomFilter/BloomFilter"
+	"github.com/neerajchowdary889/DBLookup_Bloomfilter/BloomFilter"
 	"testing"
 	"time"
 )

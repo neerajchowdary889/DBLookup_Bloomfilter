@@ -1,10 +1,12 @@
 package BloomFilter
 
 import (
-	"BloomFilter/BloomFilter/types"
+	"fmt"
 	"hash/fnv"
 	"sync"
 	"time"
+
+	"github.com/neerajchowdary889/DBLookup_Bloomfilter/BloomFilter/types"
 )
 
 // Bloom represents a dual Bloom filter with time-based refresh.
@@ -61,11 +63,16 @@ func (bloom *Bloom) refreshLoop() {
 			bloom.mu.Lock()
 			// backupBloom = mainBloom (preserve current data - last 25 minutes)
 			bloom.backupBloom = bloom.mainBloom
-			// Create new mainBloom (fresh start for next 25 minutes)
+			// DEBUGGING
+			fmt.Println("Backup Bloom: ", bloom.backupBloom.GetBitSize())
+			fmt.Println("Swapping mainBloom to backupBloom")
+			// Create new mainBloom (fresh start for next time)
 			bloom.mainBloom = types.NewBloomFilter(
 				bloom.numberOfItems,
 				bloom.falsePositiveProbability,
 			)
+			// DEBUGGING
+			fmt.Println("Main Bloom: ", bloom.mainBloom.GetBitSize())
 			bloom.mu.Unlock()
 
 		case <-bloom.stopChan:
